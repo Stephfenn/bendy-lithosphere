@@ -1,4 +1,0 @@
-numpy
-matplotlib
-sqlite3
-datetime
