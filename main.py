@@ -2,6 +2,7 @@ from datetime import datetime as time
 from src.Calculations import run_Calculations as Calculations, run_comparison_Calculations as ComparisonCalculations
 from src.Database import create_database as Database_Creation, save_model_run as Database_Saving
 from src.Plot import plot_flexure_model as Plot, plot_comparison_model as PlotComparison
+from pathlib import Path
 
 # -----------------------------
 # Inputs
@@ -28,8 +29,14 @@ print("Processing Plots")
 # Assigning Time To Saved Files
 # -----------------------------
 
-run_time = time.now().strftime("%Y-%m-%d_%H-%M-%S")
-database_filename = f"data/model_runs_{run_time}.db"
+run_time = time.now().strftime("%Y-%m-%d_%H-%M-%S") 
+
+
+project_dir = Path(__file__).resolve().parent
+database_dir = project_dir / "data"
+database_dir.mkdir(parents=True, exist_ok=True)
+database_filename = str(database_dir / "flexure_results.db")
+
 plot_filename = f"outputs/flexure_model_{run_time}.png"
 
 # -----------------------------

@@ -1,13 +1,14 @@
 import numpy as np
 import sqlite3 as sql
-import os
+from pathlib import Path
 
 # -----------------------------
 # Data Saving
 # -----------------------------
 
 def create_database(Database_filename):
-    os.makedirs("Data", exist_ok=True)
+    # Create the folder for the database path passed in from main.py.
+    Path(Database_filename).parent.mkdir(parents=True, exist_ok=True)
 
     connection = sql.connect(Database_filename)
     cursor = connection.cursor()
@@ -27,8 +28,10 @@ def create_database(Database_filename):
     connection.commit()
     connection.close()
 
+
 def save_model_run(Database_filename, run_time, Te, load_height, load_width, deflection, D):
-    connection = sql.connect(f"Data/model_runs_{run_time}.db")
+    # Save to the same database where create_database() created the table.
+    connection = sql.connect(Database_filename)
     cursor = connection.cursor()
 
     cursor.execute("""
@@ -40,8 +43,7 @@ def save_model_run(Database_filename, run_time, Te, load_height, load_width, def
             flexural_rigidity
         )
         VALUES (?, ?, ?, ?, ?)
-    """, (Te, load_height, load_width, np.min(deflection), D)
-    )
+    """, (Te, load_height, load_width, float(np.min(deflection)), D))
 
     connection.commit()
     connection.close()

@@ -21,3 +21,11 @@ By using a simplifed version of a 1D flexure model, it is achievable to find and
  
  ## NOTES ##
 Equations, and a more "physical background to the equations is provided within the PDF file that can be downloaded and read to understand the project more.
+
+## TUTORIAL ##
+Run in the Terminal before beginning to download the requirements.txt:
+``` 
+python -m pip install numpy
+python -m pip install matplotlib 
+python main.py
+``` 

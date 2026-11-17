@@ -1,4 +1,3 @@
 numpy
-matplotlib
-sqlite3
+matplotlib 
 datetime
